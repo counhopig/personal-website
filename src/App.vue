@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <header>
+      <h1>Hi, this is Counhopig</h1>
       <h1>Welcome to My Website Collection</h1>
     </header>
-    <my-website></my-website>
+    <my-website> </my-website>
   </div>
 </template>
 
@@ -26,12 +27,22 @@ export default {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
 }
 
 header {
   padding: 20px;
+  position: relative;
+  top: 0;
+  left: 20%;
+  text-align: left;
+}
+
+my-website {
+  padding: 20px;
+  position: relative;
+  left: 20%;
+  text-align: left;
 }
 
 h1 {
