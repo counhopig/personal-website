@@ -8,22 +8,22 @@
 </template>
 
 <script>
-import MyWebsite from './components/MyWebsite.vue'
+import MyWebsite from "./components/MyWebsite.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    'my-website': MyWebsite
-  }
-}
+    "my-website": MyWebsite,
+  },
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  color: #CDD6F4; 
-  background-color: #1E1E2E; 
-  min-height: 100vh; 
+  color: #cdd6f4;
+  background-color: #1e1e2e;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,6 +35,6 @@ header {
 }
 
 h1 {
-  color: #F28FAD; 
+  color: #f28fad;
 }
 </style>

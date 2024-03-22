@@ -2,7 +2,12 @@
   <div class="website-list">
     <h2>My Personal Tools Website</h2>
     <ul>
-      <li v-for="site in websites" :key="site.url" @click="goToSite(site.url)" class="clickable">
+      <li
+        v-for="site in websites"
+        :key="site.url"
+        @click="goToSite(site.url)"
+        class="clickable"
+      >
         <a :href="site.url" target="_blank">{{ site.name }}</a>
       </li>
     </ul>
@@ -21,6 +26,7 @@ export default {
       ],
     };
   },
+
   methods: {
     goToSite(url) {
       window.open(url, "_blank");
@@ -37,7 +43,7 @@ export default {
   background: #1e1e2e;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  border: 2px solid #FFFFFF;
+  border: 2px solid #ffffff;
 }
 
 .website-list h2 {
