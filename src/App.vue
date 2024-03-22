@@ -27,22 +27,22 @@ export default {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  position: relative;
 }
 
 header {
   padding: 20px;
   position: relative;
   top: 0;
-  left: 20%;
-  text-align: left;
 }
 
 my-website {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
   padding: 20px;
-  position: relative;
-  left: 20%;
-  text-align: left;
+  width: 1200px;
+  margin: 0 auto;
 }
 
 h1 {
