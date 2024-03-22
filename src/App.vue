@@ -31,18 +31,9 @@ export default {
 }
 
 header {
-  padding: 20px;
+  padding-top: 60px;
   position: relative;
   top: 0;
-}
-
-my-website {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  width: 1200px;
-  margin: 0 auto;
 }
 
 h1 {
