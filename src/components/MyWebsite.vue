@@ -2,12 +2,7 @@
   <div class="website-list">
     <h2>My Personal Tools Website</h2>
     <ul>
-      <li
-        v-for="site in websites"
-        :key="site.url"
-        @click="goToSite(site.url)"
-        class="clickable"
-      >
+      <li v-for="site in websites" :txt="site.url" @click="goToSite(site.url)" class="clickable">
         <a :href="site.url" target="_blank">{{ site.name }}</a>
       </li>
     </ul>
