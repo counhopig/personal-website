@@ -1,78 +1,36 @@
-<template>
-  <div class="website-list">
-    <h2>My Personal Tools Website</h2>
-    <ul>
-      <li v-for="site in websites" :txt="site.url" @click="goToSite(site.url)" class="clickable">
-        <a :href="site.url" target="_blank">{{ site.name }}</a>
-      </li>
-    </ul>
-  </div>
-</template>
-
 <script>
+const message = "Welcome to My Website Collection";
 export default {
-  name: "WebsiteList",
+  name: "MyWebsite",
   data() {
     return {
-      websites: [
-        { name: "IT Tools", url: "https://it-tool.counhopig.top" },
-        { name: "Wakapi", url: "https://wakapi.counhopig.top" },
-        { name: "PDF Tools", url: "https://pdf.counhopig.top" },
-      ],
+      message,
     };
-  },
-
-  methods: {
-    goToSite(url) {
-      window.open(url, "_blank");
-    },
   },
 };
 </script>
 
-<style scoped>
-.website-list {
-  margin: 5%;
-  margin-top: 0px;
-  padding: 20px;
-  background: #1e1e2e;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  border: 2px solid #ffffff;
-}
-
-.website-list h2 {
-  text-align: center;
-  color: #cdd6f4;
-  margin-bottom: 20px;
-}
-
-.website-list ul {
-  list-style: none;
-  padding: 0;
-}
-
-.website-list li {
-  margin: 10px 0;
-  background-color: #313244;
-  padding: 10px 20px;
-  border-radius: 8px;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.website-list li:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.website-list a {
-  color: #f28fad;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.website-list a:hover {
-  text-decoration: underline;
-  color: #abe9b3;
-}
-</style>
+<template>
+  <div
+    class="my-website flex flex-col items-center justify-center text-center p-4"
+  >
+    <h1 class="text-2xl font-bold mb-4">{{ message }}</h1>
+    <p class="text-lg mb-8">
+      This is a collection of my favorite websites, built with Vue.js and
+      Tailwind CSS.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <a
+        v-for="(site, index) in sites"
+        :key="index"
+        :href="site.url"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300"
+      >
+        <h2 class="text-xl font-semibold mb-2">{{ site.name }}</h2>
+        <p class="text-gray-600 dark:text-gray-400">{{ site.description }}</p>
+      </a>
+    </div>
+  </div>
+</template>
