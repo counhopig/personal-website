@@ -64,14 +64,27 @@
           </div>
 
           <div class="progress-section">
-            <span class="time-current">{{ formatTime(progress) }}</span>
-            <div class="progress-bar" @click="setProgress">
+            <span class="time-current">
+              {{ currentSongInfo?.type === 'radio' ? 'LIVE' : formatTime(progress) }}
+            </span>
+            <div 
+              class="progress-bar" 
+              @click="setProgress"
+              :class="{ disabled: currentSongInfo?.type === 'radio' }"
+            >
               <div 
                 class="progress-fill" 
-                :style="{ width: duration ? (progress / duration * 100) + '%' : '0%' }"
+                :style="{ 
+                  width: currentSongInfo?.type === 'radio' 
+                    ? '100%' 
+                    : duration ? (progress / duration * 100) + '%' : '0%' 
+                }"
+                :class="{ live: currentSongInfo?.type === 'radio' }"
               ></div>
             </div>
-            <span class="time-total">{{ formatTime(duration) }}</span>
+            <span class="time-total">
+              {{ currentSongInfo?.type === 'radio' ? 'LIVE' : formatTime(duration) }}
+            </span>
           </div>
 
           <div class="volume-section">
@@ -99,7 +112,10 @@
               >
                 <span class="song-number">{{ index + 1 }}</span>
                 <div class="playlist-song-info">
-                  <span class="playlist-song-title">{{ song.title }}</span>
+                  <span class="playlist-song-title">
+                    {{ song.title }}
+                    <span v-if="song.type === 'radio'" class="live-badge">LIVE</span>
+                  </span>
                   <span class="playlist-song-artist">{{ song.artist }}</span>
                 </div>
                 <span class="song-duration">{{ song.duration }}</span>
@@ -185,24 +201,58 @@ export default {
         },
       ],
       playlist: [
+        // 环境音乐
         {
-          title: "Lofi Hip Hop Mix",
-          artist: "Chillhop Music",
-          duration: "3:24",
-          url: "https://www.soundjay.com/misc/sounds-misc/bell-ringing-05.wav" // 示例音频
+          title: "Drone Zone",
+          artist: "SomaFM",
+          duration: "Live",
+          url: "https://somafm.com/dronezone/",
+          type: "radio",
+          streamUrl: "https://ice1.somafm.com/dronezone-128-mp3"
         },
         {
-          title: "Peaceful Piano",
-          artist: "Relaxing Music",
-          duration: "4:12",
-          url: "https://www.soundjay.com/misc/sounds-misc/bell-ringing-05.wav" // 示例音频
+          title: "Lush",
+          artist: "SomaFM",
+          duration: "Live",
+          url: "https://somafm.com/lush/",
+          type: "radio",
+          streamUrl: "https://ice1.somafm.com/lush-128-mp3"
         },
         {
-          title: "Nature Sounds",
-          artist: "Ambient",
-          duration: "5:30",
-          url: "https://www.soundjay.com/misc/sounds-misc/bell-ringing-05.wav" // 示例音频
-        }
+          title: "Deep Space One",
+          artist: "SomaFM",
+          duration: "Live",
+          url: "https://somafm.com/deepspaceone/",
+          type: "radio",
+          streamUrl: "https://ice1.somafm.com/deepspaceone-128-mp3"
+        },
+        // 爵士乐
+        {
+          title: "Groove Salad",
+          artist: "SomaFM",
+          duration: "Live",
+          url: "https://somafm.com/groovesalad/",
+          type: "radio",
+          streamUrl: "https://ice1.somafm.com/groovesalad-128-mp3"
+        },
+        // 古典音乐
+        {
+          title: "WQXR Classical",
+          artist: "WQXR",
+          duration: "Live",
+          url: "https://www.wqxr.org/",
+          type: "radio",
+          streamUrl: "https://stream.wqxr.org/wqxr"
+        },
+        // 轻松电子乐
+        {
+          title: "Beat Blender",
+          artist: "SomaFM",
+          duration: "Live",
+          url: "https://somafm.com/beatblender/",
+          type: "radio",
+          streamUrl: "https://ice1.somafm.com/beatblender-128-mp3"
+        },
       ]
     };
   },
@@ -277,17 +327,70 @@ export default {
       }
     },
     playMusic() {
-      // 这里是音乐播放的示例实现
-      // 在实际应用中，您可能需要使用真实的音频文件
-      this.isPlaying = true;
-      console.log(`播放: ${this.currentSongInfo.title}`);
-      
-      // 模拟播放进度
-      this.progress = 0;
-      this.duration = 180; // 3分钟示例
-      this.simulateProgress();
+      const currentSong = this.currentSongInfo;
+      if (!currentSong) return;
+
+      // 停止当前播放的音频
+      if (this.currentSong) {
+        this.currentSong.pause();
+        this.currentSong = null;
+      }
+
+      // 创建新的音频实例
+      if (currentSong.type === 'radio') {
+        // 对于电台，使用流媒体URL
+        this.currentSong = new Audio();
+        this.currentSong.src = currentSong.streamUrl;
+        this.currentSong.crossOrigin = "anonymous";
+        
+        // 电台是直播流，没有固定时长
+        this.duration = 0;
+        this.progress = 0;
+      } else {
+        // 对于普通音频文件
+        this.currentSong = new Audio(currentSong.url);
+      }
+
+      // 设置音量
+      this.currentSong.volume = this.volume / 100;
+
+      // 添加事件监听器
+      this.currentSong.addEventListener('loadedmetadata', () => {
+        if (currentSong.type !== 'radio') {
+          this.duration = this.currentSong.duration;
+        }
+      });
+
+      this.currentSong.addEventListener('timeupdate', () => {
+        if (currentSong.type !== 'radio') {
+          this.progress = this.currentSong.currentTime;
+        }
+      });
+
+      this.currentSong.addEventListener('ended', () => {
+        if (currentSong.type !== 'radio') {
+          this.nextSong();
+        }
+      });
+
+      this.currentSong.addEventListener('error', (e) => {
+        console.error('音频播放错误:', e);
+        this.isPlaying = false;
+      });
+
+      // 开始播放
+      this.currentSong.play().then(() => {
+        this.isPlaying = true;
+        console.log(`播放: ${currentSong.title}`);
+      }).catch(error => {
+        console.error('播放失败:', error);
+        this.isPlaying = false;
+      });
     },
     pauseMusic() {
+      if (this.currentSong) {
+        this.currentSong.pause();
+      }
       this.isPlaying = false;
       console.log("暂停播放");
     },
@@ -305,28 +408,29 @@ export default {
         this.playMusic();
       }
     },
-    simulateProgress() {
-      if (this.isPlaying && this.progress < this.duration) {
-        setTimeout(() => {
-          this.progress += 1;
-          this.simulateProgress();
-        }, 1000);
-      } else if (this.progress >= this.duration) {
-        this.nextSong();
-      }
-    },
     formatTime(seconds) {
+      if (!seconds || seconds === 0) return "0:00";
       const mins = Math.floor(seconds / 60);
-      const secs = seconds % 60;
+      const secs = Math.floor(seconds % 60);
       return `${mins}:${secs.toString().padStart(2, '0')}`;
     },
     setVolume(event) {
       this.volume = event.target.value;
+      if (this.currentSong) {
+        this.currentSong.volume = this.volume / 100;
+      }
     },
     setProgress(event) {
+      if (!this.currentSong || this.currentSongInfo?.type === 'radio') {
+        return; // 电台不支持进度调整
+      }
+      
       const rect = event.target.getBoundingClientRect();
       const percent = (event.clientX - rect.left) / rect.width;
-      this.progress = Math.floor(percent * this.duration);
+      const newTime = percent * this.duration;
+      
+      this.currentSong.currentTime = newTime;
+      this.progress = newTime;
     }
   }
 };
@@ -641,11 +745,25 @@ html, body {
   overflow: hidden;
 }
 
+.progress-bar.disabled {
+  cursor: not-allowed;
+}
+
 .progress-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--ctp-mocha-pink), var(--ctp-mocha-mauve));
   border-radius: 2px;
   transition: width 0.3s ease;
+}
+
+.progress-fill.live {
+  background: linear-gradient(90deg, var(--ctp-mocha-red), var(--ctp-mocha-pink));
+  animation: live-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes live-pulse {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
 }
 
 .volume-section {
@@ -749,6 +867,18 @@ html, body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.live-badge {
+  font-size: 0.65rem;
+  color: var(--ctp-mocha-red);
+  margin-left: 0.3rem;
+  animation: live-blink 1.5s ease-in-out infinite;
+}
+
+@keyframes live-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 .playlist-song-artist {
