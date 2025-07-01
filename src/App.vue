@@ -1,4 +1,4 @@
-<template>
+z<template>
   <div id="app">
     <my-website />
   </div>
@@ -17,6 +17,13 @@ export default {
 </script>
 
 <style>
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 :root {
   --ctp-mocha-base: #1e1e2e;
   --ctp-mocha-mantle: #181825;
@@ -39,20 +46,17 @@ export default {
 }
 
 #app {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: var(--ctp-mocha-text);
-  background: linear-gradient(
-    135deg,
-    var(--ctp-mocha-base) 60%,
-    var(--ctp-mocha-surface0) 100%
-  );
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 .bg-image {

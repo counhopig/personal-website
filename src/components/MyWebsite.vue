@@ -13,7 +13,7 @@
 
     <!-- 主要内容区域 -->
     <main class="main-content">
-      <!-- 常用链接模块 -->
+      <!-- 左侧：常用链接模块 -->
       <section class="links-section">
         <h2 class="section-title">常用网址</h2>
         <div class="links-container">
@@ -43,7 +43,7 @@
         </div>
       </section>
 
-      <!-- 音乐播放模块 -->
+      <!-- 右侧：音乐播放模块 -->
       <section class="music-section">
         <h2 class="section-title">音乐播放器</h2>
         <div class="music-player">
@@ -142,31 +142,31 @@ export default {
           category: "开发"
         },
         {
-          name: "MDN Web Docs",
-          url: "https://developer.mozilla.org",
-          description: "Web开发文档",
-          icon: "📖",
-          category: "开发"
+          name: "Bing",
+          url: "https://bing.com",
+          description: "微软搜索引擎",
+          icon: "🌐",
+          category: "工具"
         },
         {
-          name: "Vue.js",
-          url: "https://vuejs.org",
-          description: "渐进式JavaScript框架",
-          icon: "🔧",
-          category: "开发"
+          name: "IT-Tools",
+          url: "https://it-tools.counhopig.top",
+          description: "IT工具集合",
+          icon: "🛠️",
+          category: "工具"
+        },
+        {
+          name: "PDF Tools",
+          url: "https://pdf.counhopig.top",
+          description: "PDF工具集合",
+          icon: "📄",
+          category: "工具"
         },
         {
           name: "YouTube",
           url: "https://youtube.com",
           description: "视频分享平台",
           icon: "📺",
-          category: "娱乐"
-        },
-        {
-          name: "Netflix",
-          url: "https://netflix.com",
-          description: "在线流媒体",
-          icon: "🎬",
           category: "娱乐"
         },
         {
@@ -183,13 +183,6 @@ export default {
           icon: "📹",
           category: "娱乐"
         },
-        {
-          name: "知乎",
-          url: "https://zhihu.com",
-          description: "知识问答社区",
-          icon: "💡",
-          category: "学习"
-        }
       ],
       playlist: [
         {
@@ -340,62 +333,97 @@ export default {
 </script>
 
 <style scoped>
+/* 全局重置，确保无滚动 */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden !important;
+}
+
 .personal-website {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0.6rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 2vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
 }
 
 /* 头部时间显示模块 */
 .welcome-section {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .time-display {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
+  border-radius: 16px;
+  padding: 0.8rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .greeting {
-  font-size: 2.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: var(--ctp-mocha-pink);
-  margin-bottom: 1rem;
+  margin: 0;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+.time-info {
+  text-align: right;
+}
+
 .current-time {
-  font-size: 3rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: var(--ctp-mocha-text);
   font-family: 'Courier New', monospace;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  line-height: 1;
 }
 
 .current-date {
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   color: var(--ctp-mocha-subtext1);
-  margin-top: 0.5rem;
+  margin-top: 0.1rem;
 }
 
 /* 主要内容区域 */
 .main-content {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
+  grid-template-columns: 1fr 360px;
+  gap: 0.8rem;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  max-height: calc(100vh - 140px);
 }
 
 .section-title {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: var(--ctp-mocha-mauve);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.6rem;
   text-align: center;
 }
 
@@ -403,156 +431,191 @@ export default {
 .links-section {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
+  border-radius: 16px;
+  padding: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  height: 100%;
 }
 
 .links-container {
-  display: grid;
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  max-height: calc(100% - 60px);
 }
 
 .category-group {
-  margin-bottom: 2rem;
+  margin-bottom: 0.6rem;
 }
 
 .category-title {
-  font-size: 1.3rem;
+  font-size: 0.95rem;
   font-weight: bold;
   color: var(--ctp-mocha-blue);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   text-align: left;
 }
 
 .links-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.5rem;
 }
 
 .link-card {
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 1rem;
+  border-radius: 10px;
+  padding: 0.6rem;
   text-decoration: none;
   color: inherit;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 45px;
 }
 
 .link-card:hover {
   background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .link-icon {
-  font-size: 2rem;
-  margin-right: 1rem;
+  font-size: 1.5rem;
+  margin-right: 0.8rem;
   flex-shrink: 0;
 }
 
 .link-info {
   flex: 1;
+  min-width: 0;
 }
 
 .link-name {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
   color: var(--ctp-mocha-text);
-  margin: 0 0 0.3rem 0;
+  margin: 0 0 0.2rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .link-description {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--ctp-mocha-subtext0);
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 音乐播放模块 */
 .music-section {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
+  border-radius: 16px;
+  padding: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  height: 100%;
 }
 
 .music-player {
-  max-width: 500px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  max-height: calc(100% - 60px);
 }
 
 .song-info {
   display: flex;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
   text-align: left;
 }
 
 .album-art {
-  font-size: 3rem;
-  margin-right: 1rem;
+  font-size: 1.8rem;
+  margin-right: 0.7rem;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  width: 80px;
-  height: 80px;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .song-details {
   flex: 1;
+  min-width: 0;
 }
 
 .song-title {
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: bold;
   color: var(--ctp-mocha-text);
-  margin: 0 0 0.3rem 0;
+  margin: 0 0 0.1rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .song-artist {
   color: var(--ctp-mocha-subtext1);
   margin: 0;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .player-controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.7rem;
+  margin-bottom: 0.8rem;
 }
 
 .control-btn, .play-btn {
   background: rgba(255, 255, 255, 0.1);
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 .play-btn {
-  width: 60px;
-  height: 60px;
+  width: 45px;
+  height: 45px;
   background: var(--ctp-mocha-pink);
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
 
 .control-btn:hover, .play-btn:hover {
   background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .play-btn:hover {
@@ -562,17 +625,17 @@ export default {
 .progress-section {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
+  gap: 0.7rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.75rem;
   color: var(--ctp-mocha-subtext1);
 }
 
 .progress-bar {
   flex: 1;
-  height: 6px;
+  height: 3px;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
+  border-radius: 2px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -581,39 +644,39 @@ export default {
 .progress-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--ctp-mocha-pink), var(--ctp-mocha-mauve));
-  border-radius: 3px;
+  border-radius: 2px;
   transition: width 0.3s ease;
 }
 
 .volume-section {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
+  gap: 0.7rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.75rem;
 }
 
 .volume-slider {
   flex: 1;
-  height: 4px;
+  height: 2px;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
+  border-radius: 1px;
   outline: none;
   appearance: none;
 }
 
 .volume-slider::-webkit-slider-thumb {
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 10px;
+  height: 10px;
   background: var(--ctp-mocha-pink);
   border-radius: 50%;
   cursor: pointer;
 }
 
 .volume-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
+  width: 10px;
+  height: 10px;
   background: var(--ctp-mocha-pink);
   border-radius: 50%;
   cursor: pointer;
@@ -622,30 +685,36 @@ export default {
 
 .playlist {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 1.5rem;
+  padding-top: 0.8rem;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .playlist-title {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: bold;
   color: var(--ctp-mocha-text);
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
   text-align: left;
 }
 
 .playlist-items {
-  max-height: 200px;
+  flex: 1;
   overflow-y: auto;
+  min-height: 0;
 }
 
 .playlist-item {
   display: flex;
   align-items: center;
-  padding: 0.8rem;
-  border-radius: 8px;
+  padding: 0.5rem;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
 }
 
 .playlist-item:hover {
@@ -658,49 +727,86 @@ export default {
 }
 
 .song-number {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--ctp-mocha-subtext0);
-  margin-right: 1rem;
-  width: 20px;
+  margin-right: 0.8rem;
+  width: 16px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .playlist-song-info {
   flex: 1;
   text-align: left;
+  min-width: 0;
 }
 
 .playlist-song-title {
   display: block;
   font-weight: 500;
   color: var(--ctp-mocha-text);
-  font-size: 0.95rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .playlist-song-artist {
   display: block;
   color: var(--ctp-mocha-subtext1);
-  font-size: 0.8rem;
-  margin-top: 0.2rem;
+  font-size: 0.7rem;
+  margin-top: 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .song-duration {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: var(--ctp-mocha-subtext0);
+  flex-shrink: 0;
 }
 
 /* 响应式设计 */
+@media (max-width: 1200px) {
+  .main-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 400px;
+    max-height: calc(100vh - 120px);
+  }
+  
+  .music-section {
+    min-height: 400px;
+  }
+}
+
 @media (max-width: 768px) {
   .personal-website {
-    padding: 1rem;
+    padding: 0.8rem;
+    padding-top: 1vh;
+  }
+  
+  .main-content {
+    max-height: calc(100vh - 140px);
+  }
+  
+  .time-display {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
   }
   
   .greeting {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
   
   .current-time {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
+  }
+  
+  .main-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
   
   .links-grid {
@@ -708,44 +814,85 @@ export default {
   }
   
   .link-card {
-    padding: 0.8rem;
+    padding: 0.6rem;
   }
   
   .time-display {
-    padding: 1.5rem;
+    padding: 1rem;
   }
 }
 
 @media (max-width: 480px) {
+  .personal-website {
+    padding-top: 0.5vh;
+  }
+  
   .greeting {
-    font-size: 1.8rem;
+    font-size: 1.3rem;
   }
   
   .current-time {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
   
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .time-display {
+    padding: 0.8rem;
+  }
+  
+  .main-content {
+    max-height: calc(100vh - 120px);
   }
 }
 
-/* 滚动条样式 */
-.playlist-items::-webkit-scrollbar {
-  width: 6px;
+/* 垂直居中的优化样式 */
+@media (min-height: 800px) {
+  .personal-website {
+    justify-content: center;
+    padding-top: 0.6rem;
+  }
+  
+  .main-content {
+    max-height: calc(90vh - 140px);
+  }
 }
 
-.playlist-items::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+@media (min-height: 1000px) {
+  .personal-website {
+    justify-content: center;
+    padding-top: 0.6rem;
+  }
+  
+  .main-content {
+    max-height: calc(85vh - 140px);
+  }
 }
 
-.playlist-items::-webkit-scrollbar-thumb {
-  background: var(--ctp-mocha-pink);
-  border-radius: 3px;
-}
+/* 确保页面不会超出viewport高度 */
+@media (min-width: 1201px) {
+  .links-container::-webkit-scrollbar,
+  .playlist-items::-webkit-scrollbar {
+    width: 4px;
+  }
 
-.playlist-items::-webkit-scrollbar-thumb:hover {
-  background: var(--ctp-mocha-mauve);
+  .links-container::-webkit-scrollbar-track,
+  .playlist-items::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+  }
+
+  .links-container::-webkit-scrollbar-thumb,
+  .playlist-items::-webkit-scrollbar-thumb {
+    background: var(--ctp-mocha-pink);
+    border-radius: 2px;
+  }
+
+  .links-container::-webkit-scrollbar-thumb:hover,
+  .playlist-items::-webkit-scrollbar-thumb:hover {
+    background: var(--ctp-mocha-mauve);
+  }
 }
 </style>
