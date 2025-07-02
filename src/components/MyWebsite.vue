@@ -17,8 +17,8 @@
       <section class="links-section">
         <h2 class="section-title">常用网址</h2>
         <div class="links-container">
-          <div 
-            v-for="(links, category) in linksByCategory" 
+          <div
+            v-for="(links, category) in linksByCategory"
             :key="category"
             class="category-group"
           >
@@ -50,60 +50,86 @@
           <div class="song-info">
             <div class="album-art">🎵</div>
             <div class="song-details">
-              <h3 class="song-title">{{ currentSongInfo?.title || '未选择歌曲' }}</h3>
-              <p class="song-artist">{{ currentSongInfo?.artist || '' }}</p>
+              <h3 class="song-title">
+                {{ currentSongInfo?.title || "未选择歌曲" }}
+              </h3>
+              <p class="song-artist">{{ currentSongInfo?.artist || "" }}</p>
             </div>
           </div>
-          
+
           <div class="player-controls">
-            <button @click="prevSong" class="control-btn">⏮️</button>
-            <button @click="togglePlay" class="play-btn">
-              {{ isPlaying ? '⏸️' : '▶️' }}
+            <button
+              @click="prevSong"
+              class="control-btn"
+            >
+              ⏮️
             </button>
-            <button @click="nextSong" class="control-btn">⏭️</button>
+            <button
+              @click="togglePlay"
+              class="play-btn"
+            >
+              {{ isPlaying ? "⏸️" : "▶️" }}
+            </button>
+            <button
+              @click="nextSong"
+              class="control-btn"
+            >
+              ⏭️
+            </button>
           </div>
 
           <div class="progress-section">
             <span class="time-current">
-              {{ currentSongInfo?.type === 'radio' ? 'LIVE' : formatTime(progress) }}
+              {{
+                currentSongInfo?.type === "radio"
+                  ? "LIVE"
+                  : formatTime(progress)
+              }}
             </span>
-            <div 
-              class="progress-bar" 
+            <div
+              class="progress-bar"
               @click="setProgress"
               :class="{ disabled: currentSongInfo?.type === 'radio' }"
             >
-              <div 
-                class="progress-fill" 
-                :style="{ 
-                  width: currentSongInfo?.type === 'radio' 
-                    ? '100%' 
-                    : duration ? (progress / duration * 100) + '%' : '0%' 
+              <div
+                class="progress-fill"
+                :style="{
+                  width:
+                    currentSongInfo?.type === 'radio'
+                      ? '100%'
+                      : duration
+                        ? (progress / duration) * 100 + '%'
+                        : '0%',
                 }"
                 :class="{ live: currentSongInfo?.type === 'radio' }"
               ></div>
             </div>
             <span class="time-total">
-              {{ currentSongInfo?.type === 'radio' ? 'LIVE' : formatTime(duration) }}
+              {{
+                currentSongInfo?.type === "radio"
+                  ? "LIVE"
+                  : formatTime(duration)
+              }}
             </span>
           </div>
 
           <div class="volume-section">
             <span class="volume-icon">🔊</span>
-            <input 
-              type="range" 
-              min="0" 
-              max="100" 
-              :value="volume" 
+            <input
+              type="range"
+              min="0"
+              max="100"
+              :value="volume"
               @input="setVolume"
               class="volume-slider"
-            >
+            />
             <span class="volume-value">{{ volume }}%</span>
           </div>
 
           <div class="playlist">
             <h4 class="playlist-title">播放列表</h4>
             <div class="playlist-items">
-              <div 
+              <div
                 v-for="(song, index) in playlist"
                 :key="index"
                 @click="currentSongIndex = index"
@@ -114,7 +140,12 @@
                 <div class="playlist-song-info">
                   <span class="playlist-song-title">
                     {{ song.title }}
-                    <span v-if="song.type === 'radio'" class="live-badge">LIVE</span>
+                    <span
+                      v-if="song.type === 'radio'"
+                      class="live-badge"
+                    >
+                      LIVE
+                    </span>
                   </span>
                   <span class="playlist-song-artist">{{ song.artist }}</span>
                 </div>
@@ -148,56 +179,56 @@ export default {
           url: "https://github.com",
           description: "代码托管平台",
           icon: "🐙",
-          category: "开发"
+          category: "开发",
         },
         {
           name: "Stack Overflow",
           url: "https://stackoverflow.com",
           description: "程序员问答社区",
           icon: "📚",
-          category: "开发"
+          category: "开发",
         },
         {
           name: "Bing",
           url: "https://bing.com",
           description: "微软搜索引擎",
           icon: "🌐",
-          category: "工具"
+          category: "工具",
         },
         {
           name: "IT-Tools",
           url: "https://it-tools.counhopig.top",
           description: "IT工具集合",
           icon: "🛠️",
-          category: "工具"
+          category: "工具",
         },
         {
           name: "PDF Tools",
           url: "https://pdf.counhopig.top",
           description: "PDF工具集合",
           icon: "📄",
-          category: "工具"
+          category: "工具",
         },
         {
           name: "YouTube",
           url: "https://youtube.com",
           description: "视频分享平台",
           icon: "📺",
-          category: "娱乐"
+          category: "娱乐",
         },
         {
           name: "Spotify",
           url: "https://spotify.com",
           description: "音乐流媒体",
           icon: "🎵",
-          category: "音乐"
+          category: "音乐",
         },
         {
           name: "Bilibili",
           url: "https://bilibili.com",
           description: "弹幕视频网站",
           icon: "📹",
-          category: "娱乐"
+          category: "娱乐",
         },
       ],
       playlist: [
@@ -208,7 +239,7 @@ export default {
           duration: "Live",
           url: "https://somafm.com/dronezone/",
           type: "radio",
-          streamUrl: "https://ice1.somafm.com/dronezone-128-mp3"
+          streamUrl: "https://ice1.somafm.com/dronezone-128-mp3",
         },
         {
           title: "Lush",
@@ -216,7 +247,7 @@ export default {
           duration: "Live",
           url: "https://somafm.com/lush/",
           type: "radio",
-          streamUrl: "https://ice1.somafm.com/lush-128-mp3"
+          streamUrl: "https://ice1.somafm.com/lush-128-mp3",
         },
         {
           title: "Deep Space One",
@@ -224,7 +255,7 @@ export default {
           duration: "Live",
           url: "https://somafm.com/deepspaceone/",
           type: "radio",
-          streamUrl: "https://ice1.somafm.com/deepspaceone-128-mp3"
+          streamUrl: "https://ice1.somafm.com/deepspaceone-128-mp3",
         },
         // 爵士乐
         {
@@ -233,7 +264,7 @@ export default {
           duration: "Live",
           url: "https://somafm.com/groovesalad/",
           type: "radio",
-          streamUrl: "https://ice1.somafm.com/groovesalad-128-mp3"
+          streamUrl: "https://ice1.somafm.com/groovesalad-128-mp3",
         },
         // 古典音乐
         {
@@ -242,7 +273,7 @@ export default {
           duration: "Live",
           url: "https://www.wqxr.org/",
           type: "radio",
-          streamUrl: "https://stream.wqxr.org/wqxr"
+          streamUrl: "https://stream.wqxr.org/wqxr",
         },
         // 轻松电子乐
         {
@@ -251,31 +282,31 @@ export default {
           duration: "Live",
           url: "https://somafm.com/beatblender/",
           type: "radio",
-          streamUrl: "https://ice1.somafm.com/beatblender-128-mp3"
+          streamUrl: "https://ice1.somafm.com/beatblender-128-mp3",
         },
-      ]
+      ],
     };
   },
   computed: {
     formattedTime() {
-      return this.currentTime.toLocaleTimeString('zh-CN', {
+      return this.currentTime.toLocaleTimeString("zh-CN", {
         hour12: false,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
       });
     },
     formattedDate() {
-      return this.currentTime.toLocaleDateString('zh-CN', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long'
+      return this.currentTime.toLocaleDateString("zh-CN", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long",
       });
     },
     linksByCategory() {
       const categories = {};
-      this.favoriteLinks.forEach(link => {
+      this.favoriteLinks.forEach((link) => {
         if (!categories[link.category]) {
           categories[link.category] = [];
         }
@@ -285,7 +316,7 @@ export default {
     },
     currentSongInfo() {
       return this.playlist[this.currentSongIndex] || null;
-    }
+    },
   },
   mounted() {
     this.updateTime();
@@ -337,12 +368,12 @@ export default {
       }
 
       // 创建新的音频实例
-      if (currentSong.type === 'radio') {
+      if (currentSong.type === "radio") {
         // 对于电台，使用流媒体URL
         this.currentSong = new Audio();
         this.currentSong.src = currentSong.streamUrl;
         this.currentSong.crossOrigin = "anonymous";
-        
+
         // 电台是直播流，没有固定时长
         this.duration = 0;
         this.progress = 0;
@@ -355,37 +386,40 @@ export default {
       this.currentSong.volume = this.volume / 100;
 
       // 添加事件监听器
-      this.currentSong.addEventListener('loadedmetadata', () => {
-        if (currentSong.type !== 'radio') {
+      this.currentSong.addEventListener("loadedmetadata", () => {
+        if (currentSong.type !== "radio") {
           this.duration = this.currentSong.duration;
         }
       });
 
-      this.currentSong.addEventListener('timeupdate', () => {
-        if (currentSong.type !== 'radio') {
+      this.currentSong.addEventListener("timeupdate", () => {
+        if (currentSong.type !== "radio") {
           this.progress = this.currentSong.currentTime;
         }
       });
 
-      this.currentSong.addEventListener('ended', () => {
-        if (currentSong.type !== 'radio') {
+      this.currentSong.addEventListener("ended", () => {
+        if (currentSong.type !== "radio") {
           this.nextSong();
         }
       });
 
-      this.currentSong.addEventListener('error', (e) => {
-        console.error('音频播放错误:', e);
+      this.currentSong.addEventListener("error", (e) => {
+        console.error("音频播放错误:", e);
         this.isPlaying = false;
       });
 
       // 开始播放
-      this.currentSong.play().then(() => {
-        this.isPlaying = true;
-        console.log(`播放: ${currentSong.title}`);
-      }).catch(error => {
-        console.error('播放失败:', error);
-        this.isPlaying = false;
-      });
+      this.currentSong
+        .play()
+        .then(() => {
+          this.isPlaying = true;
+          console.log(`播放: ${currentSong.title}`);
+        })
+        .catch((error) => {
+          console.error("播放失败:", error);
+          this.isPlaying = false;
+        });
     },
     pauseMusic() {
       if (this.currentSong) {
@@ -395,15 +429,17 @@ export default {
       console.log("暂停播放");
     },
     nextSong() {
-      this.currentSongIndex = (this.currentSongIndex + 1) % this.playlist.length;
+      this.currentSongIndex =
+        (this.currentSongIndex + 1) % this.playlist.length;
       if (this.isPlaying) {
         this.playMusic();
       }
     },
     prevSong() {
-      this.currentSongIndex = this.currentSongIndex === 0 
-        ? this.playlist.length - 1 
-        : this.currentSongIndex - 1;
+      this.currentSongIndex =
+        this.currentSongIndex === 0
+          ? this.playlist.length - 1
+          : this.currentSongIndex - 1;
       if (this.isPlaying) {
         this.playMusic();
       }
@@ -412,7 +448,7 @@ export default {
       if (!seconds || seconds === 0) return "0:00";
       const mins = Math.floor(seconds / 60);
       const secs = Math.floor(seconds % 60);
-      return `${mins}:${secs.toString().padStart(2, '0')}`;
+      return `${mins}:${secs.toString().padStart(2, "0")}`;
     },
     setVolume(event) {
       this.volume = event.target.value;
@@ -421,18 +457,18 @@ export default {
       }
     },
     setProgress(event) {
-      if (!this.currentSong || this.currentSongInfo?.type === 'radio') {
+      if (!this.currentSong || this.currentSongInfo?.type === "radio") {
         return; // 电台不支持进度调整
       }
-      
+
       const rect = event.target.getBoundingClientRect();
       const percent = (event.clientX - rect.left) / rect.width;
       const newTime = percent * this.duration;
-      
+
       this.currentSong.currentTime = newTime;
       this.progress = newTime;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -442,7 +478,8 @@ export default {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -501,7 +538,7 @@ html, body {
   font-size: 1.6rem;
   font-weight: bold;
   color: var(--ctp-mocha-text);
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   line-height: 1;
 }
@@ -696,7 +733,8 @@ html, body {
   margin-bottom: 0.8rem;
 }
 
-.control-btn, .play-btn {
+.control-btn,
+.play-btn {
   background: rgba(255, 255, 255, 0.1);
   border: none;
   border-radius: 50%;
@@ -717,7 +755,8 @@ html, body {
   font-size: 1.4rem;
 }
 
-.control-btn:hover, .play-btn:hover {
+.control-btn:hover,
+.play-btn:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.05);
 }
@@ -751,19 +790,31 @@ html, body {
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--ctp-mocha-pink), var(--ctp-mocha-mauve));
+  background: linear-gradient(
+    90deg,
+    var(--ctp-mocha-pink),
+    var(--ctp-mocha-mauve)
+  );
   border-radius: 2px;
   transition: width 0.3s ease;
 }
 
 .progress-fill.live {
-  background: linear-gradient(90deg, var(--ctp-mocha-red), var(--ctp-mocha-pink));
+  background: linear-gradient(
+    90deg,
+    var(--ctp-mocha-red),
+    var(--ctp-mocha-pink)
+  );
   animation: live-pulse 2s ease-in-out infinite alternate;
 }
 
 @keyframes live-pulse {
-  0% { opacity: 0.6; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .volume-section {
@@ -877,8 +928,13 @@ html, body {
 }
 
 @keyframes live-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .playlist-song-artist {
@@ -904,7 +960,7 @@ html, body {
     grid-template-rows: 1fr 400px;
     max-height: calc(100vh - 120px);
   }
-  
+
   .music-section {
     min-height: 400px;
   }
@@ -915,38 +971,38 @@ html, body {
     padding: 0.8rem;
     padding-top: 1vh;
   }
-  
+
   .main-content {
     max-height: calc(100vh - 140px);
   }
-  
+
   .time-display {
     flex-direction: column;
     text-align: center;
     gap: 0.5rem;
   }
-  
+
   .greeting {
     font-size: 1.5rem;
   }
-  
+
   .current-time {
     font-size: 1.8rem;
   }
-  
+
   .main-content {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .links-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .link-card {
     padding: 0.6rem;
   }
-  
+
   .time-display {
     padding: 1rem;
   }
@@ -956,23 +1012,23 @@ html, body {
   .personal-website {
     padding-top: 0.5vh;
   }
-  
+
   .greeting {
     font-size: 1.3rem;
   }
-  
+
   .current-time {
     font-size: 1.5rem;
   }
-  
+
   .section-title {
     font-size: 1.2rem;
   }
-  
+
   .time-display {
     padding: 0.8rem;
   }
-  
+
   .main-content {
     max-height: calc(100vh - 120px);
   }
@@ -984,7 +1040,7 @@ html, body {
     justify-content: center;
     padding-top: 0.6rem;
   }
-  
+
   .main-content {
     max-height: calc(90vh - 140px);
   }
@@ -995,7 +1051,7 @@ html, body {
     justify-content: center;
     padding-top: 0.6rem;
   }
-  
+
   .main-content {
     max-height: calc(85vh - 140px);
   }
